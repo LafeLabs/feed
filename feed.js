@@ -14,6 +14,7 @@ document.getElementById("post").value = "";
 document.getElementById("post").select();
 
 document.getElementById("clear").onclick = function(){
+
     feed = [];
     loadFeed();
     saveFeed();
@@ -23,7 +24,13 @@ document.getElementById("clear").onclick = function(){
 }
 
 document.getElementById("post").onchange = function(){
-    feed.unshift(this.value);
+    if(this.value.slice(-5) == ".html" || this.value.slice(0,8) == "https://" || this.value.slice(0,8) == "HTTPS://" || this.value.slice(0,7) == "http://"){
+        post = "<a href = \"" + this.value + "\">" + this.value + "</a>";
+    }
+    else{
+        post = this.value;
+    }
+    feed.unshift(post);
     this.value = "";
     loadFeed();
     saveFeed();
